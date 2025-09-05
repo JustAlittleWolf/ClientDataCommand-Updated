@@ -18,7 +18,6 @@ import java.util.function.Predicate;
 
 public interface ClientEntitySelector {
 	default Entity getEntity(FabricClientCommandSource source) throws CommandSyntaxException {
-		this.checkSourcePermission(source);
 		List<? extends Entity> list = this.getEntities(source);
 		if (list.isEmpty()) {
 			throw EntityArgumentType.ENTITY_NOT_FOUND_EXCEPTION.create();
@@ -29,16 +28,9 @@ public interface ClientEntitySelector {
 		}
 	}
 
-	private void checkSourcePermission(FabricClientCommandSource source) throws CommandSyntaxException {
-		if (this.clientDataCommand$this().usesAt && !source.getPlayer().hasPermissionLevel(2)) {
-			throw EntityArgumentType.NOT_ALLOWED_EXCEPTION.create();
-		}
-	}
-
 	EntitySelector clientDataCommand$this();
 
 	default List<? extends Entity> getEntities(FabricClientCommandSource source) throws CommandSyntaxException {
-		this.checkSourcePermission(source);
 		if (!this.clientDataCommand$this().includesNonPlayers) {
 			return this.getPlayers(source);
 		} else if (this.clientDataCommand$this().playerName != null) {
@@ -89,7 +81,6 @@ public interface ClientEntitySelector {
 	}
 
 	default List<PlayerEntity> getPlayers(FabricClientCommandSource source) throws CommandSyntaxException {
-		this.checkSourcePermission(source);
 		if (this.clientDataCommand$this().playerName != null) {
 //			ServerPlayerEntity serverPlayerEntity = source.getServer().getPlayerManager().getPlayer(this.thiz().playerName);
 			PlayerEntity serverPlayerEntity = EntitySelectorHelper.getPlayer(source.getWorld(), this.clientDataCommand$this().playerName);

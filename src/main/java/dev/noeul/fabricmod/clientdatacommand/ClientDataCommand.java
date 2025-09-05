@@ -51,7 +51,7 @@ public class ClientDataCommand {
 				UnaryOperator<ArgumentBuilder<FabricClientCommandSource, ?>> argumentAdder
 		) {
 			return argument.then(literal("entity")
-					.then(argumentAdder.apply(argument(argumentName, EntityArgumentType.entity())))
+					.then(argumentAdder.apply(argument(argumentName, ((ClientEntityArgumentType) EntityArgumentType.entity()).clientDataCommand$withAlwaysAllowAtSelectors())))
 			);
 		}
 	};
