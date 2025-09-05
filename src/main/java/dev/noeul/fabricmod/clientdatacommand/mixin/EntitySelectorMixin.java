@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(EntitySelector.class)
 public class EntitySelectorMixin implements ClientEntitySelector {
 	@Override
-	public EntitySelector thiz() {
+	public EntitySelector clientDataCommand$this() {
 		return (EntitySelector) (Object) this;
 	}
 }

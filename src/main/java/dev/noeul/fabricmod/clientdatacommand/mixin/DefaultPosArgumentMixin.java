@@ -27,7 +27,7 @@ public abstract class DefaultPosArgumentMixin implements ClientPosArgument {
 	private CoordinateArgument z;
 
 	@Override
-	public Vec3d toAbsolutePos(FabricClientCommandSource source) {
+	public Vec3d clientDataCommand$toAbsolutePos(FabricClientCommandSource source) {
 		Vec3d vec3d = source.getPosition();
 		return new Vec3d(
 				this.x.toAbsoluteCoordinate(vec3d.x),

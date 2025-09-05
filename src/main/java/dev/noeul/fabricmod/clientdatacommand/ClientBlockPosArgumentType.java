@@ -18,7 +18,7 @@ public interface ClientBlockPosArgumentType {
 
 	static BlockPos getLoadedBlockPos(CommandContext<FabricClientCommandSource> context, World world, String name) throws CommandSyntaxException {
 		BlockPos blockPos = getBlockPos(context, name);
-		if (!world.isChunkLoaded(blockPos)) {
+		if (!world.isPosLoaded(blockPos)) {
 			throw BlockPosArgumentType.UNLOADED_EXCEPTION.create();
 		} else if (!world.isInBuildLimit(blockPos)) {
 			throw BlockPosArgumentType.OUT_OF_WORLD_EXCEPTION.create();

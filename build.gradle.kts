@@ -1,6 +1,6 @@
 plugins {
 	id("java")
-	id("fabric-loom") version "latest.release"
+	id("fabric-loom") version "1.11-SNAPSHOT"
 	id("maven-publish")
 }
 
@@ -25,14 +25,16 @@ dependencies {
 	modImplementation("com.terraformersmc:modmenu:${property("mod_menu_version")}")
 
 	modRuntimeOnly("maven.modrinth:mixintrace:1.1.1+1.17") // https://modrinth.com/mod/mixintrace/versions
-	modRuntimeOnly("maven.modrinth:spark:1.10.73-fabric") { // https://modrinth.com/mod/spark/versions
-		modRuntimeOnly("me.lucko:fabric-permissions-api:0.3.1")
+	modRuntimeOnly("maven.modrinth:spark:1.10.142-fabric") { // https://modrinth.com/mod/spark/versions
+		modRuntimeOnly("me.lucko:fabric-permissions-api:0.4.0")
 	}
-	modRuntimeOnly("maven.modrinth:language-reload:1.6.1+1.21") // https://modrinth.com/mod/language-reload/versions
-	modRuntimeOnly("maven.modrinth:ferrite-core:7.0.0") // https://modrinth.com/mod/ferrite-core/versions
-	modRuntimeOnly("maven.modrinth:auth-me:8.0.0+1.21") { // https://modrinth.com/mod/auth-me/versions
-		// https://linkie.shedaniel.dev/dependencies?loader=fabric&version=1.21#dep-2
-		modRuntimeOnly("me.shedaniel.cloth:cloth-config-fabric:15.+")
+	modRuntimeOnly("maven.modrinth:language-reload:1.7.4+1.21.6") // https://modrinth.com/mod/language-reload/versions
+	modRuntimeOnly("maven.modrinth:ferrite-core:8.0.0-fabric") // https://modrinth.com/mod/ferrite-core/versions
+	modRuntimeOnly("maven.modrinth:auth-me:v9.0.1+1.21.7") { // https://modrinth.com/mod/auth-me/versions
+		// https://linkie.shedaniel.dev/dependencies?loader=fabric&version=1.21.8
+		modRuntimeOnly("me.shedaniel.cloth:cloth-config-fabric:19.0.147")
+        // https://modrinth.com/mod/resourceful-config/versions
+        modRuntimeOnly("maven.modrinth:resourceful-config:cDu7RHev")
 	}
 }
 

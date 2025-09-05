@@ -7,7 +7,6 @@ import net.minecraft.util.TypeFilter;
 import net.minecraft.util.function.LazyIterationConsumer;
 import net.minecraft.world.World;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
@@ -35,17 +34,15 @@ public interface EntitySelectorHelper {
 
 	static List<PlayerEntity> getPlayers(World world, Predicate<? super PlayerEntity> predicate, int limit) {
 		List<PlayerEntity> list = Lists.newArrayList();
-		Iterator<? extends PlayerEntity> var4 = world.getPlayers().iterator();
 
-		while (var4.hasNext()) {
-			PlayerEntity serverPlayerEntity = var4.next();
-			if (predicate.test(serverPlayerEntity)) {
-				list.add(serverPlayerEntity);
-				if (list.size() >= limit) {
-					return list;
-				}
-			}
-		}
+    for (PlayerEntity serverPlayerEntity : world.getPlayers()) {
+      if (predicate.test(serverPlayerEntity)) {
+        list.add(serverPlayerEntity);
+        if (list.size() >= limit) {
+          return list;
+        }
+      }
+    }
 
 		return list;
 	}

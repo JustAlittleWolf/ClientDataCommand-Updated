@@ -30,22 +30,22 @@ public interface ClientEntitySelector {
 	}
 
 	private void checkSourcePermission(FabricClientCommandSource source) throws CommandSyntaxException {
-		if (this.thiz().usesAt && !source.hasPermissionLevel(2)) {
+		if (this.clientDataCommand$this().usesAt && !source.getPlayer().hasPermissionLevel(2)) {
 			throw EntityArgumentType.NOT_ALLOWED_EXCEPTION.create();
 		}
 	}
 
-	EntitySelector thiz();
+	EntitySelector clientDataCommand$this();
 
 	default List<? extends Entity> getEntities(FabricClientCommandSource source) throws CommandSyntaxException {
 		this.checkSourcePermission(source);
-		if (!this.thiz().includesNonPlayers) {
+		if (!this.clientDataCommand$this().includesNonPlayers) {
 			return this.getPlayers(source);
-		} else if (this.thiz().playerName != null) {
+		} else if (this.clientDataCommand$this().playerName != null) {
 //			ServerPlayerEntity serverPlayerEntity = source.getServer().getPlayerManager().getPlayer(this.thiz().playerName);
-			PlayerEntity serverPlayerEntity = EntitySelectorHelper.getPlayer(source.getWorld(), this.thiz().playerName);
+			PlayerEntity serverPlayerEntity = EntitySelectorHelper.getPlayer(source.getWorld(), this.clientDataCommand$this().playerName);
 			return serverPlayerEntity == null ? List.of() : List.of(serverPlayerEntity);
-		} else if (this.thiz().uuid != null) {
+		} else if (this.clientDataCommand$this().uuid != null) {
 			/*for (ServerWorld serverWorld : source.getServer().getWorlds()) {
 				Entity entity = serverWorld.getEntity(this.thiz().uuid);
 				if (entity != null) {
@@ -57,7 +57,7 @@ public interface ClientEntitySelector {
 			}*/
 			ClientWorld serverWorld = source.getWorld();
 //			Entity entity = serverWorld.getEntity(this.thiz().uuid);
-			Entity entity = EntitySelectorHelper.getEntity(serverWorld, this.thiz().uuid);
+			Entity entity = EntitySelectorHelper.getEntity(serverWorld, this.clientDataCommand$this().uuid);
 			if (entity != null) {
 				if (entity.getType().isEnabled(source.getEnabledFeatures())) {
 					return List.of(entity);
@@ -66,13 +66,13 @@ public interface ClientEntitySelector {
 
 			return List.of();
 		} else {
-			Vec3d vec3d = this.thiz().positionOffset.apply(source.getPosition());
-			Box box = this.thiz().getOffsetBox(vec3d);
-			if (this.thiz().senderOnly) {
-				Predicate<Entity> predicate = this.thiz().getPositionPredicate(vec3d, box, null);
+			Vec3d vec3d = this.clientDataCommand$this().positionOffset.apply(source.getPosition());
+			Box box = this.clientDataCommand$this().getOffsetBox(vec3d);
+			if (this.clientDataCommand$this().senderOnly) {
+				Predicate<Entity> predicate = this.clientDataCommand$this().getPositionPredicate(vec3d, box, null);
 				return source.getEntity() != null && predicate.test(source.getEntity()) ? List.of(source.getEntity()) : List.of();
 			} else {
-				Predicate<Entity> predicate = this.thiz().getPositionPredicate(vec3d, box, source.getEnabledFeatures());
+				Predicate<Entity> predicate = this.clientDataCommand$this().getPositionPredicate(vec3d, box, source.getEnabledFeatures());
 				List<Entity> list = new ObjectArrayList<>();
 				/*if (this.thiz().isLocalWorldOnly()) {
 					this.appendEntitiesFromWorld(list, source.getWorld(), box, predicate);
@@ -83,26 +83,26 @@ public interface ClientEntitySelector {
 				}*/
 				this.appendEntitiesFromWorld(list, source.getWorld(), box, predicate);
 
-				return this.thiz().getEntities(vec3d, list);
+				return this.clientDataCommand$this().getEntities(vec3d, list);
 			}
 		}
 	}
 
 	default List<PlayerEntity> getPlayers(FabricClientCommandSource source) throws CommandSyntaxException {
 		this.checkSourcePermission(source);
-		if (this.thiz().playerName != null) {
+		if (this.clientDataCommand$this().playerName != null) {
 //			ServerPlayerEntity serverPlayerEntity = source.getServer().getPlayerManager().getPlayer(this.thiz().playerName);
-			PlayerEntity serverPlayerEntity = EntitySelectorHelper.getPlayer(source.getWorld(), this.thiz().playerName);
+			PlayerEntity serverPlayerEntity = EntitySelectorHelper.getPlayer(source.getWorld(), this.clientDataCommand$this().playerName);
 			return serverPlayerEntity == null ? List.of() : List.of(serverPlayerEntity);
-		} else if (this.thiz().uuid != null) {
+		} else if (this.clientDataCommand$this().uuid != null) {
 //			ServerPlayerEntity serverPlayerEntity = source.getServer().getPlayerManager().getPlayer(this.thiz().uuid);
-			PlayerEntity serverPlayerEntity = EntitySelectorHelper.getPlayer(source.getWorld(), this.thiz().uuid);
+			PlayerEntity serverPlayerEntity = EntitySelectorHelper.getPlayer(source.getWorld(), this.clientDataCommand$this().uuid);
 			return serverPlayerEntity == null ? List.of() : List.of(serverPlayerEntity);
 		} else {
-			Vec3d vec3d = this.thiz().positionOffset.apply(source.getPosition());
-			Box box = this.thiz().getOffsetBox(vec3d);
-			Predicate<Entity> predicate = this.thiz().getPositionPredicate(vec3d, box, null);
-			if (this.thiz().senderOnly) {
+			Vec3d vec3d = this.clientDataCommand$this().positionOffset.apply(source.getPosition());
+			Box box = this.clientDataCommand$this().getOffsetBox(vec3d);
+			Predicate<Entity> predicate = this.clientDataCommand$this().getPositionPredicate(vec3d, box, null);
+			if (this.clientDataCommand$this().senderOnly) {
 //				if (source.getEntity() instanceof ServerPlayerEntity serverPlayerEntity2 && predicate.test(serverPlayerEntity2)) {
 				if (source.getEntity() instanceof PlayerEntity serverPlayerEntity2 && predicate.test(serverPlayerEntity2)) {
 					return List.of(serverPlayerEntity2);
@@ -110,9 +110,9 @@ public interface ClientEntitySelector {
 
 				return List.of();
 			} else {
-				int i = this.thiz().getAppendLimit();
+				int i = this.clientDataCommand$this().getAppendLimit();
 				List<PlayerEntity> list;
-				if (this.thiz().isLocalWorldOnly()) {
+				if (this.clientDataCommand$this().isLocalWorldOnly()) {
 //					list = source.getWorld().getPlayers(predicate, i);
 					list = EntitySelectorHelper.getPlayers(source.getWorld(), predicate, i);
 				} else {
@@ -129,19 +129,19 @@ public interface ClientEntitySelector {
 					}
 				}
 
-				return this.thiz().getEntities(vec3d, list);
+				return this.clientDataCommand$this().getEntities(vec3d, list);
 			}
 		}
 	}
 
 	default void appendEntitiesFromWorld(List<Entity> entities, World world, @Nullable Box box, Predicate<Entity> predicate) {
-		int i = this.thiz().getAppendLimit();
+		int i = this.clientDataCommand$this().getAppendLimit();
 		if (entities.size() < i) {
 			if (box != null) {
-				world.collectEntitiesByType(this.thiz().entityFilter, box, predicate, entities, i);
+				world.collectEntitiesByType(this.clientDataCommand$this().entityFilter, box, predicate, entities, i);
 			} else {
 //				world.collectEntitiesByType(this.thiz().entityFilter, predicate, entities, i);
-				EntitySelectorHelper.collectEntitiesByType(world, this.thiz().entityFilter, predicate, entities, i);
+				EntitySelectorHelper.collectEntitiesByType(world, this.clientDataCommand$this().entityFilter, predicate, entities, i);
 			}
 
 		}

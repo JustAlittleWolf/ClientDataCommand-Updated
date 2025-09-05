@@ -7,8 +7,8 @@ import net.minecraft.util.math.Vec3d;
 
 public interface ClientPosArgument extends PosArgument {
 	default BlockPos toAbsoluteBlockPos(FabricClientCommandSource source) {
-		return BlockPos.ofFloored(this.toAbsolutePos(source));
+		return BlockPos.ofFloored(this.clientDataCommand$toAbsolutePos(source));
 	}
 
-	Vec3d toAbsolutePos(FabricClientCommandSource source);
+	Vec3d clientDataCommand$toAbsolutePos(FabricClientCommandSource source);
 }

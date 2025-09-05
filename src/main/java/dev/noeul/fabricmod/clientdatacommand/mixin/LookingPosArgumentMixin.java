@@ -28,7 +28,7 @@ public abstract class LookingPosArgumentMixin implements ClientPosArgument {
 	private double z;
 
 	@Override
-	public Vec3d toAbsolutePos(FabricClientCommandSource source) {
+	public Vec3d clientDataCommand$toAbsolutePos(FabricClientCommandSource source) {
 		Vec2f vec2f = source.getRotation();
 //		Vec3d vec3d = source.getEntityAnchor().positionAt(source);
 		Vec3d vec3d = source.getEntity().getEyePos();

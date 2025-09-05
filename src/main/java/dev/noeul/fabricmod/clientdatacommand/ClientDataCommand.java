@@ -376,7 +376,7 @@ public class ClientDataCommand {
 				throw DataCommand.GET_UNKNOWN_EXCEPTION.create(path.toString());
 			}
 
-			i = nbtElement.asString().length();
+			i = nbtElement.asString().orElse("").length();
 		}
 
 		source.sendFeedback(object.feedbackQuery(nbtElement));
