@@ -1,6 +1,6 @@
 plugins {
 	id("java")
-	id("fabric-loom") version "1.11-SNAPSHOT"
+	id("fabric-loom") version "1.12-SNAPSHOT"
 	id("maven-publish")
 }
 
@@ -21,21 +21,8 @@ dependencies {
 	mappings("net.fabricmc:yarn:${property("yarn_mappings")}:v2")
 	modImplementation("net.fabricmc:fabric-loader:${property("loader_version")}")
 
-	modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_api_version")}")
+	modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")
 	modImplementation("com.terraformersmc:modmenu:${property("mod_menu_version")}")
-
-	modRuntimeOnly("maven.modrinth:mixintrace:1.1.1+1.17") // https://modrinth.com/mod/mixintrace/versions
-	modRuntimeOnly("maven.modrinth:spark:1.10.142-fabric") { // https://modrinth.com/mod/spark/versions
-		modRuntimeOnly("me.lucko:fabric-permissions-api:0.4.0")
-	}
-	modRuntimeOnly("maven.modrinth:language-reload:1.7.4+1.21.6") // https://modrinth.com/mod/language-reload/versions
-	modRuntimeOnly("maven.modrinth:ferrite-core:8.0.0-fabric") // https://modrinth.com/mod/ferrite-core/versions
-	modRuntimeOnly("maven.modrinth:auth-me:v9.0.1+1.21.7") { // https://modrinth.com/mod/auth-me/versions
-		// https://linkie.shedaniel.dev/dependencies?loader=fabric&version=1.21.8
-		modRuntimeOnly("me.shedaniel.cloth:cloth-config-fabric:19.0.147")
-        // https://modrinth.com/mod/resourceful-config/versions
-        modRuntimeOnly("maven.modrinth:resourceful-config:cDu7RHev")
-	}
 }
 
 loom {
@@ -88,7 +75,7 @@ tasks {
 			"java_version" to project.property("target_java_version"),
 			"minecraft_version" to project.property("minecraft_version"),
 			"loader_version" to project.property("loader_version"),
-			"fabric_api_version" to project.property("fabric_api_version"),
+			"fabric_api_version" to project.property("fabric_version"),
 		)
 		this.inputs.properties(inputs)
 		filesMatching("fabric.mod.json") {
@@ -123,12 +110,7 @@ afterEvaluate {
 			"-Dmixin.hotSwap=true",
 			"-XX:+AllowEnhancedClassRedefinition",
 			"-XX:HotswapAgent=fatjar",
-			"-XX:+IgnoreUnrecognizedVMOptions",
-			"-javaagent:${
-				configurations.compileClasspath.get()
-					.files { it.group == "net.fabricmc" && it.name == "sponge-mixin" }
-					.first()
-			}"
+			"-XX:+IgnoreUnrecognizedVMOptions"
 		)
 	}
 }

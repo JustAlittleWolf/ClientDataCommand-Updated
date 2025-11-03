@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 public interface EntitySelectorHelper {
 	static PlayerEntity getPlayer(World world, String name) {
 		for (PlayerEntity player : world.getPlayers()) {
-			if (player.getGameProfile().getName().equalsIgnoreCase(name))
+			if (player.getGameProfile().name().equalsIgnoreCase(name))
 				return player;
 		}
 		return null;
@@ -22,7 +22,7 @@ public interface EntitySelectorHelper {
 
 	static PlayerEntity getPlayer(World world, UUID uuid) {
 		for (PlayerEntity player : world.getPlayers()) {
-			if (player.getGameProfile().getId().equals(uuid))
+			if (player.getGameProfile().id().equals(uuid))
 				return player;
 		}
 		return null;

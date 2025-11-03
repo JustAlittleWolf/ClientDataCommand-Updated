@@ -20,7 +20,9 @@
 		"issues": "https://github.com/No-Eul/ClientDataCommand/issues",
 		"sources": "https://github.com/No-Eul/ClientDataCommand"
 	},
-	"contributors": [],
+	"contributors": [
+      "JustAlittleWolf"
+    ],
 	"license": "MIT",
 	"icon": "assets/client-data-command/icon.png",
 	"environment": "*",
@@ -33,7 +35,7 @@
 	"accessWidener": "client-data-command.accesswidener",
 	"depends": {
 		"java": ">=${java_version}",
-		"minecraft": ">=1.21-beta.2",
+		"minecraft": ">=1.21.9",
 		"fabricloader": ">=${loader_version}",
 		"fabric-command-api-v2": "*"
 	},
