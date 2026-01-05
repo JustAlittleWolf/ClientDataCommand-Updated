@@ -4,6 +4,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.noeul.fabricmod.clientdatacommand.ClientEntityArgumentType;
 import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.command.permission.Permission;
+import net.minecraft.command.permission.PermissionPredicate;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -35,11 +37,11 @@ public class EntityArgumentTypeMixin implements ClientEntityArgumentType {
             method = "listSuggestions",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/command/EntitySelectorReader;shouldAllowAtSelectors(Ljava/lang/Object;)Z"
+                    target = "Lnet/minecraft/command/permission/PermissionPredicate;hasPermission(Lnet/minecraft/command/permission/Permission;)Z"
             )
     )
-    private <S> boolean listSuggestionsOverrideShouldAllowAtSelectors(S source, Operation<Boolean> original) {
+    private boolean listSuggestionsOverrideShouldAllowAtSelectors(PermissionPredicate instance, Permission permission, Operation<Boolean> original) {
         if (alwaysAllowAtSelectors) return true;
-        return original.call(source);
+        return original.call(instance, permission);
     }
 }

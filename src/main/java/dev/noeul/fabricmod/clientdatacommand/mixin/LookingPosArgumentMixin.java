@@ -4,7 +4,7 @@ import dev.noeul.fabricmod.clientdatacommand.ClientPosArgument;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-import net.minecraft.command.argument.LookingPosArgument;
+import net.minecraft.command.argument.LocalPosArgument;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Environment(EnvType.CLIENT)
-@Mixin(LookingPosArgument.class)
+@Mixin(LocalPosArgument.class)
 public abstract class LookingPosArgumentMixin implements ClientPosArgument {
 	@Shadow
 	@Final
