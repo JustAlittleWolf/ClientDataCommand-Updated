@@ -1,6 +1,7 @@
 package me.wolfii.clientdatacommandupdated;
 
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
+import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.world.flag.FeatureFlagSet;
 import org.jspecify.annotations.NonNull;
@@ -11,7 +12,7 @@ public class FabricClientCommandSourceStack extends CommandSourceStack {
 
     public FabricClientCommandSourceStack(FabricClientCommandSource clientSource) {
         super(
-            null,
+            CommandSource.NULL,
             clientSource.getPosition(),
             clientSource.getRotation(),
             null,
