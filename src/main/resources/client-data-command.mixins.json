@@ -4,12 +4,10 @@
   "package": "me.wolfii.clientdatacommandupdated.mixin",
   "compatibilityLevel": "JAVA_25",
   "client": [
+    "EntityArgumentMixin",
+    "EntitySelectorMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "mixins": [
-    "EntityArgumentMixin",
-    "EntitySelectorMixin"
-  ]
+  }
 }
