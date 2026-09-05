@@ -9,11 +9,19 @@ base {
     archivesName = project.archives_base_name + "+" + project.minecraft_version
 }
 
+repositories {
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+}
+
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    implementation "maven.modrinth:nbt-autocomplete:${nbt_autocomplete_version}"
 }
 
 

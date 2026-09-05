@@ -20,7 +20,7 @@ public interface ClientBlockEntityPosArgument {
     }
 
     static BlockPos getLoadedBlockPos(CommandContext<FabricClientCommandSource> context, String name) throws CommandSyntaxException {
-        BlockPos blockPos = context.getArgument("target", Coordinates.class).getBlockPos(new FabricClientCommandSourceStack(context.getSource()));
+        BlockPos blockPos = context.getArgument(name, Coordinates.class).getBlockPos(new FabricClientCommandSourceStack(context.getSource()));
         Level level = context.getSource().getLevel();
         if (!level.hasChunk(SectionPos.blockToSectionCoord(blockPos.getX()), SectionPos.blockToSectionCoord(blockPos.getZ()))) {
             throw BlockPosArgument.ERROR_NOT_LOADED.create();
