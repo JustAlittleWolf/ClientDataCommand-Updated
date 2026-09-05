@@ -5,9 +5,7 @@
   "name": "Client Data Command Updated",
   "description": "Add client-sided Data command",
   "authors": [
-    "JustAlittleWolf"
-  ],
-  "contributors": [
+    "JustAlittleWolf",
     "NoEul"
   ],
   "license": "MIT",
